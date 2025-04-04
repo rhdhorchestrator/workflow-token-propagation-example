@@ -1,0 +1,37 @@
+id: token-propagation
+version: "1.0"
+specVersion: "0.8"
+name: "Token Propagation"
+description: Propagate token
+functions:
+  - name: getWithBearerTokenSecurityScheme
+    operation: specs/dumb-server.yaml#getWithBearerTokenSecurityScheme
+  - name: getWithOtherBearerTokenSecurityScheme
+    operation: specs/dumb-server.yaml#getWithOtherBearerTokenSecurityScheme
+  - name: print
+    type: custom
+    operation: sysout
+  - name: successResult
+    type: expression
+    operation: '{
+        "result": {
+          "completedWith":"success",
+          "message": "Token propagated, check the dumb server logs",
+          "outputs":[]
+        }
+      }'
+start: "Print inputs"
+states:
+  - name: Print inputs
+    type: operation
+    actions:
+      - name: "getWithBearerTokenSecurityScheme"
+        functionRef:
+          refName: getWithBearerTokenSecurityScheme
+      - name: "getWithOtherBearerTokenSecurityScheme"
+        functionRef:
+          refName: getWithOtherBearerTokenSecurityScheme
+      - name: setOutput
+        functionRef:
+          refName: successResult
+    end: true

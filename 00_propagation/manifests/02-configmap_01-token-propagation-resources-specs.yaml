@@ -1,0 +1,55 @@
+apiVersion: v1
+data:
+  dumb-server.yaml: |-
+    openapi: 3.0.3
+    info:
+      title: Dumber server API
+      description: |-
+        Dumber server API
+      version: 1.0.0
+    tags:
+      - name: Dumber server API
+        description: Dumber server API
+    servers:
+      - url: /
+    paths:
+      /:
+        get:
+          summary: Send requests to dumb server
+          description: Send requests to dumb server to check the auth headers
+          operationId: getWithBearerTokenSecurityScheme
+          responses:
+            "200":
+              description: Successful operation
+          security:
+            - BearerTokenOther: []
+      /other:
+        get:
+          summary: Send requests to dumb server with another security scheme
+          description: Send requests to dumb server to check the auth header
+          operationId: getWithOtherBearerTokenSecurityScheme
+          responses:
+            "200":
+              description: Successful operation
+          security:
+            - BearerTokenOther: []
+    components:
+      securitySchemes:
+        BearerToken:
+         type: oauth2
+         flows:
+           clientCredentials:
+             tokenUrl: http://example-kc-service.keycloak:8080/realms/quarkus/protocol/openid-connect/token
+             scopes: {}
+         description: Bearer Token authentication
+        BearerTokenOther:
+         type: oauth2
+         flows:
+           clientCredentials:
+             tokenUrl: http://example-kc-service.keycloak:8080/realms/quarkus/protocol/openid-connect/token
+             scopes: {}
+         description: Bearer Token authentication
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: 01-token-propagation-resources-specs

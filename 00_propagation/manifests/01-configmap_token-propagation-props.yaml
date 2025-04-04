@@ -1,0 +1,48 @@
+apiVersion: v1
+data:
+  application.properties: |-
+    quarkus.swagger-ui.always-include=true
+    quarkus.http.cors=true
+    quarkus.http.cors.origins=*
+    quarkus.http.host=0.0.0.0
+    quarkus.http.enable-compression=true
+    quarkus.devservices.enabled=false
+
+    quarkus.rest-client.notifications.url=${BACKSTAGE_NOTIFICATIONS_URL:http://host.docker.internal:7007}
+    # not a secret
+    quarkus.openapi-generator.notifications.auth.BearerToken.bearer-token=${NOTIFICATIONS_BEARER_TOKEN:bXljdXJscGFzc3dkCg==}
+
+    mp.messaging.incoming.kogito_incoming_stream.connector=quarkus-http
+    mp.messaging.incoming.kogito_incoming_stream.path=/
+
+    quarkus.oidc-client.BearerToken.auth-server-url=http://example-kc-service.keycloak:8080/realms/quarkus
+    quarkus.oidc-client.BearerToken.token-path=http://example-kc-service.keycloak:8080/realms/quarkus/protocol/openid-connect/token
+    quarkus.oidc-client.BearerToken.discovery-enabled=false
+    quarkus.oidc-client.BearerToken.client-id=quarkus-app
+    quarkus.oidc-client.BearerToken.grant.type=client
+    quarkus.oidc-client.BearerToken.credentials.client-secret.method=basic
+    quarkus.oidc-client.BearerToken.credentials.client-secret.value=lVGSvdaoDUem7lqeAnqXn1F92dCPbQea
+
+    quarkus.openapi-generator.dumb_server_yaml.auth.BearerToken.token-propagation=true
+    quarkus.openapi-generator.dumb_server_yaml.auth.BearerToken.header-name=X-Authorization-First
+
+    quarkus.oidc-client.BearerTokenOther.auth-server-url=http://example-kc-service.keycloak:8080/realms/quarkus
+    quarkus.oidc-client.BearerTokenOther.token-path=http://example-kc-service.keycloak:8080/realms/quarkus/protocol/openid-connect/token
+    quarkus.oidc-client.BearerTokenOther.discovery-enabled=false
+    quarkus.oidc-client.BearerTokenOther.client-id=quarkus-app
+    quarkus.oidc-client.BearerTokenOther.grant.type=client
+    quarkus.oidc-client.BearerTokenOther.credentials.client-secret.method=basic
+    quarkus.oidc-client.BearerTokenOther.credentials.client-secret.value=lVGSvdaoDUem7lqeAnqXn1F92dCPbQea
+
+
+    quarkus.openapi-generator.dumb_server_yaml.auth.BearerTokenOther.token-propagation=true
+    quarkus.openapi-generator.dumb_server_yaml.auth.BearerTokenOther.header-name=X-Authorization-Other
+
+    quarkus.rest-client.dumb_server_yaml.url=http://dumber-server-service.sonataflow
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    app: token-propagation
+    sonataflow.org/workflow-app: token-propagation
+  name: token-propagation-props
