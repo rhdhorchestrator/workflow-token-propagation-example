@@ -25,22 +25,9 @@ def printHeader(request, endpointName):
     print(f"{key}: {value}")
   print("================ END ================")
     
-@app.route('/', methods=['GET'])
-def get():
-  printHeader(request, "/")
-  # Return the response from the target server
-  return Response("", status=200, content_type="text/plain")
-
-@app.route('/first', methods=['GET'])
-def getFirst():
-  printHeader(request, "/first")
-  # Return the response from the target server
-  return Response("", status=200, content_type="text/plain")
-
-
-@app.route('/other', methods=['GET'])
-def getOther():
-  printHeader(request, "/other")
+@app.route('/<path:subpath>', methods=['GET'])
+def get(subpath):
+  printHeader(request, subpath)
   # Return the response from the target server
   return Response("", status=200, content_type="text/plain")
 

@@ -30,6 +30,16 @@ paths:
           description: Successful operation
       security:
         - BearerTokenOther: []
+  /simple:
+    get:
+      summary: Send requests to dumb server with simple JWT security scheme
+      description: Send requests to dumb server to check the auth header
+      operationId: getWithSimpleBearerTokenSecurityScheme
+      responses:
+        "200":
+          description: Successful operation
+      security:
+        - SimpleBearerToken: []
 components:
   securitySchemes:
     BearerToken:
@@ -46,3 +56,6 @@ components:
          tokenUrl: http://example-kc-service.keycloak:8080/realms/quarkus/protocol/openid-connect/token
          scopes: {}
      description: Bearer Token authentication
+    SimpleBearerToken:
+     type: http
+     scheme: bearer

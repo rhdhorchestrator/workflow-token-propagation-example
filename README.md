@@ -177,7 +177,7 @@ To execute the workflow without passing by the RHDH UI, you may use the followin
 ```
 export RHDH_BEARER_TOKEN=$(oc get secrets -n rhdh-operator backstage-backend-auth-secret -o go-template='{{ .data.BACKEND_SECRET  }}' | base64 -d)
 
-curl -v -XPOST -H "Content-type: application/json" -H "Authorization: ${RHDH_BEARER_TOKEN}" ${RHDH_ROUTE}/api/orchestrator/v2/workflows/token-propagation/execute -d '{"inputData":{}, "authTokens": [{"provider": "First", "token": "FIRST"}, {"provider": "Other", "token": "OTHER"}]}'
+curl -v -XPOST -H "Content-type: application/json" -H "Authorization: ${RHDH_BEARER_TOKEN}" ${RHDH_ROUTE}/api/orchestrator/v2/workflows/token-propagation/execute -d '{"inputData":{}, "authTokens": [{"provider": "First", "token": "FIRST"}, {"provider": "Other", "token": "OTHER"}, {"provider": "Simple", "token": "SIMPLE"}]}'
 ```
 
 To generate a real token for an user in the Keycloak:
@@ -197,12 +197,12 @@ export RHDH_BEARER_TOKEN='Bearer <base64 encoded token from config>'
 
 Then check the logs for the `dumber-server` pod:
 ```
-================ Headers for /first ================
-2025-04-04 14:34:23.400634
+================ Headers for first ================
+2025-04-04 15:00:00.577614
 Accept: application/json
 Authorization: Bearer FIRST
 Kogitoprocid: token-propagation
-Kogitoprocinstanceid: 25303ddb-88a0-4d12-84e4-7475d62bfcff
+Kogitoprocinstanceid: 54168e89-2816-46bb-8ef4-5279f749c382
 Kogitoprocist: Active
 Kogitoproctype: SW
 Kogitoprocversion: 1.0
@@ -210,12 +210,25 @@ Host: dumber-server-service.sonataflow-infra
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14.redhat-00012 (Java/17.0.13)
 ================ END ================
-================ Headers for /other ================
-2025-04-04 14:34:23.460084
+================ Headers for other ================
+2025-04-04 15:00:00.705426
 Accept: application/json
-Authorization: Bearer OTHER3
+Authorization: Bearer OTHER
 Kogitoprocid: token-propagation
-Kogitoprocinstanceid: 25303ddb-88a0-4d12-84e4-7475d62bfcff
+Kogitoprocinstanceid: 54168e89-2816-46bb-8ef4-5279f749c382
+Kogitoprocist: Active
+Kogitoproctype: SW
+Kogitoprocversion: 1.0
+Host: dumber-server-service.sonataflow-infra
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14.redhat-00012 (Java/17.0.13)
+================ END ================
+================ Headers for simple ================
+2025-04-04 15:00:00.785329
+Accept: application/json
+Authorization: Bearer SIMPLE
+Kogitoprocid: token-propagation
+Kogitoprocinstanceid: 54168e89-2816-46bb-8ef4-5279f749c382
 Kogitoprocist: Active
 Kogitoproctype: SW
 Kogitoprocversion: 1.0

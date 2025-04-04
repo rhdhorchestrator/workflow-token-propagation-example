@@ -8,6 +8,8 @@ functions:
     operation: specs/dumb-server.yaml#getWithBearerTokenSecurityScheme
   - name: getWithOtherBearerTokenSecurityScheme
     operation: specs/dumb-server.yaml#getWithOtherBearerTokenSecurityScheme
+  - name: getWithSimpleBearerTokenSecurityScheme
+    operation: specs/dumb-server.yaml#getWithSimpleBearerTokenSecurityScheme
   - name: print
     type: custom
     operation: sysout
@@ -31,6 +33,9 @@ states:
       - name: "getWithOtherBearerTokenSecurityScheme"
         functionRef:
           refName: getWithOtherBearerTokenSecurityScheme
+      - name: "getWithSimpleBearerTokenSecurityScheme"
+        functionRef:
+          refName: getWithSimpleBearerTokenSecurityScheme
       - name: setOutput
         functionRef:
           refName: successResult
