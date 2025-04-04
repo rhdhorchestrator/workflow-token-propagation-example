@@ -13,7 +13,7 @@ data:
     servers:
       - url: /
     paths:
-      /:
+      /first:
         get:
           summary: Send requests to dumb server
           description: Send requests to dumb server to check the auth headers
@@ -22,7 +22,7 @@ data:
             "200":
               description: Successful operation
           security:
-            - BearerTokenOther: []
+            - BearerToken: []
       /other:
         get:
           summary: Send requests to dumb server with another security scheme
