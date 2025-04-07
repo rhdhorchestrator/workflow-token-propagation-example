@@ -1,19 +1,19 @@
 openapi: 3.0.3
 info:
-  title: Dumber server API
+  title: Simple server API
   description: |-
-    Dumber server API
+    Simple server API
   version: 1.0.0
 tags:
-  - name: Dumber server API
-    description: Dumber server API
+  - name: Simple server API
+    description: Simple server API
 servers:
   - url: /
 paths:
   /first:
     get:
-      summary: Send requests to dumb server
-      description: Send requests to dumb server to check the auth headers
+      summary: Send requests to simple server
+      description: Send requests to simple server to check the auth headers
       operationId: getWithBearerTokenSecurityScheme
       responses:
         "200":
@@ -22,8 +22,8 @@ paths:
         - BearerToken: []
   /other:
     get:
-      summary: Send requests to dumb server with another security scheme
-      description: Send requests to dumb server to check the auth header
+      summary: Send requests to simple server with another security scheme
+      description: Send requests to simple server to check the auth header
       operationId: getWithOtherBearerTokenSecurityScheme
       responses:
         "200":
@@ -32,8 +32,8 @@ paths:
         - BearerTokenOther: []
   /simple:
     get:
-      summary: Send requests to dumb server with simple JWT security scheme
-      description: Send requests to dumb server to check the auth header
+      summary: Send requests to simple server with simple JWT security scheme
+      description: Send requests to simple server to check the auth header
       operationId: getWithSimpleBearerTokenSecurityScheme
       responses:
         "200":

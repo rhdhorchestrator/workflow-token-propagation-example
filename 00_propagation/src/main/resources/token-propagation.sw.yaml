@@ -5,11 +5,11 @@ name: "Token Propagation"
 description: Propagate token
 functions:
   - name: getWithBearerTokenSecurityScheme
-    operation: specs/dumb-server.yaml#getWithBearerTokenSecurityScheme
+    operation: specs/sample-server.yaml#getWithBearerTokenSecurityScheme
   - name: getWithOtherBearerTokenSecurityScheme
-    operation: specs/dumb-server.yaml#getWithOtherBearerTokenSecurityScheme
+    operation: specs/sample-server.yaml#getWithOtherBearerTokenSecurityScheme
   - name: getWithSimpleBearerTokenSecurityScheme
-    operation: specs/dumb-server.yaml#getWithSimpleBearerTokenSecurityScheme
+    operation: specs/sample-server.yaml#getWithSimpleBearerTokenSecurityScheme
   - name: print
     type: custom
     operation: sysout
@@ -21,7 +21,7 @@ functions:
     operation: '{
         "result": {
           "completedWith":"success",
-          "message": "Token propagated, check the dumb server logs: " + $WORKFLOW.identity,
+          "message": "Token propagated, check the simple server logs: " + $WORKFLOW.identity,
           "outputs":[]
         }
       }'

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dumber-server
+  name: sample-server
 spec:
   selector:
     matchLabels:
-      app: dumber-server
+      app: sample-server
   template:
     metadata:
       labels:
-        app: dumber-server
+        app: sample-server
     spec:
       containers:
-      - name: dumber-server
-        image: quay.io/gfarache/dumber-server:latest
+      - name: sample-server
+        image: quay.io/gfarache/sample-server:latest
         ports:
         - containerPort: 8080
         livenessProbe:
@@ -34,10 +34,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dumber-server-service
+  name: sample-server-service
 spec:
   selector:
-    app: dumber-server
+    app: sample-server
   ports:
   - protocol: TCP
     port: 80

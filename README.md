@@ -167,11 +167,11 @@ All the previous steps can be done together by running:
 Once the manifests are deployed, set the environements variables needed.
 
 ## Try it
-First you need to deploy the dumber-server that will print all headers from incoming requests:
+First you need to deploy the sample-server that will print all headers from incoming requests:
 ```
-oc apply -f resources/dumb_server/00-deploy.yaml -n sontaflow-infra
+oc apply -f resources/simple-server/00-deploy.yaml -n sontaflow-infra
 ```
-You can rebuild the image of the dumb-server using the [Dockerfile](resources/dumb_server/Dockerfile) and the [source script](resources/dumb_server/dumber-server.py).
+You can rebuild the image of the sample-server using the [Dockerfile](resources/simple-server/Dockerfile) and the [source script](resources/simple-server/sample-server.py).
 
 To execute the workflow without passing by the RHDH UI, you may use the following request:
 ```
@@ -202,7 +202,7 @@ If you are running locally, `RHDH_BEARER_TOKEN` must be updated with the content
 export RHDH_BEARER_TOKEN='Bearer <base64 encoded token from config>'
 ```
 
-Then check the logs for the `dumber-server` pod:
+Then check the logs for the `sample-server` pod:
 ```
 ================ Headers for first ================
 2025-04-04 15:00:00.577614
@@ -213,7 +213,7 @@ Kogitoprocinstanceid: 54168e89-2816-46bb-8ef4-5279f749c382
 Kogitoprocist: Active
 Kogitoproctype: SW
 Kogitoprocversion: 1.0
-Host: dumber-server-service.sonataflow-infra
+Host: sample-server-service.sonataflow-infra
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14.redhat-00012 (Java/17.0.13)
 ================ END ================
@@ -226,7 +226,7 @@ Kogitoprocinstanceid: 54168e89-2816-46bb-8ef4-5279f749c382
 Kogitoprocist: Active
 Kogitoproctype: SW
 Kogitoprocversion: 1.0
-Host: dumber-server-service.sonataflow-infra
+Host: sample-server-service.sonataflow-infra
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14.redhat-00012 (Java/17.0.13)
 ================ END ================
@@ -239,7 +239,7 @@ Kogitoprocinstanceid: 54168e89-2816-46bb-8ef4-5279f749c382
 Kogitoprocist: Active
 Kogitoproctype: SW
 Kogitoprocversion: 1.0
-Host: dumber-server-service.sonataflow-infra
+Host: sample-server-service.sonataflow-infra
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14.redhat-00012 (Java/17.0.13)
 ================ END ================
