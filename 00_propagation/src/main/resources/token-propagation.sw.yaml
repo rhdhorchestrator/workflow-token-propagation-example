@@ -13,6 +13,9 @@ functions:
   - name: print
     type: custom
     operation: sysout
+  - name: getBasicIdentity
+    type: expression
+    operation: '.identity=($WORKFLOW.headers["x-authorization-basic"] | @base64d | split(":")[0])'
   - name: successResult
     type: expression
     operation: '{
@@ -32,6 +35,14 @@ states:
           refName: print
           arguments:
             message: '${"Identity: " + $WORKFLOW.identity }'
+      - name: getBasicIdentity
+        functionRef:
+          refName: getBasicIdentity
+      - name: printBasicIdentity
+        functionRef:
+          refName: print
+          arguments:
+            message: '${"Basic Identity: " + .identity }'
       - name: "getWithBearerTokenSecurityScheme"
         functionRef:
           refName: getWithBearerTokenSecurityScheme
