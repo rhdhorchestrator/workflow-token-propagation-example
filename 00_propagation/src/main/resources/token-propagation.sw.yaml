@@ -18,7 +18,7 @@ functions:
     operation: '{
         "result": {
           "completedWith":"success",
-          "message": "Token propagated, check the dumb server logs",
+          "message": "Token propagated, check the dumb server logs: " + $WORKFLOW.identity,
           "outputs":[]
         }
       }'
@@ -27,6 +27,11 @@ states:
   - name: Print inputs
     type: operation
     actions:
+      - name: print
+        functionRef:
+          refName: print
+          arguments:
+            message: '${"Identity: " + $WORKFLOW.identity }'
       - name: "getWithBearerTokenSecurityScheme"
         functionRef:
           refName: getWithBearerTokenSecurityScheme

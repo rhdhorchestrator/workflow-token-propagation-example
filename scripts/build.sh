@@ -182,6 +182,7 @@ function build_image {
     io.quarkus:quarkus-jdbc-postgresql:3.8.6.redhat-00004,\
     io.quarkiverse.openapi.generator:quarkus-openapi-generator:2.4.7,\
     io.quarkus:quarkus-oidc-client-filter,\
+    io.quarkus:quarkus-oidc,\
     io.quarkus:quarkus-agroal:3.8.6.redhat-00004"
 
     # The 'maxYamlCodePoints' parameter contols the maximum size for YAML input files. 
