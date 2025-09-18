@@ -19,15 +19,15 @@ function get_workflow_id {
     local workflow_file=""
     local workflow_id=""
 
-    workflow_file=$(findw "$workdir" -type f -regex '.*\.sw\.ya?ml$')
+    workflow_file=$(findw "$workdir" -type f -regex '.*\.sw\.ya?ml$' -not -path '*/subflows/*')
     if [ -z "$workflow_file" ]; then
-        log_error "No workflow file found with *.sw.yaml or *.sw.yml suffix"
+        log_error "No workflow file found with *.sw.yaml or *.sw.yml suffix in: $workdir"
         return 10
     fi
 
     workflow_id=$(yq '.id | downcase' "$workflow_file" 2>/dev/null)
     if [ -z "$workflow_id" ]; then
-        log_error "The workflow file doesn't seem to have an 'id' property."
+        log_error "The workflow file doesn't seem to have an 'id' property: $workflow_file"
         return 11
     fi
 

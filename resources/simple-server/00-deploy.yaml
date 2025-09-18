@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-server
+  name: simple-server
 spec:
   selector:
     matchLabels:
-      app: sample-server
+      app: simple-server
   template:
     metadata:
       labels:
-        app: sample-server
+        app: simple-server
     spec:
       containers:
-      - name: sample-server
+      - name: simple-server
         image: quay.io/gfarache/sample-server:latest
         ports:
         - containerPort: 8080
@@ -34,10 +34,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sample-server-service
+  name: simple-server-service
 spec:
   selector:
-    app: sample-server
+    app: simple-server
   ports:
   - protocol: TCP
     port: 80

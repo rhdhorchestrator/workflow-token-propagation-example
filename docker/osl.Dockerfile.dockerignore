@@ -2,3 +2,5 @@
 !LICENSE
 !src/main/java/**/*
 !src/main/resources/**/*
+!settings.xml
+!**/build-app.sh

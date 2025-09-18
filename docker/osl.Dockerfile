@@ -1,13 +1,14 @@
 ARG BUILDER_IMAGE
 ARG RUNTIME_IMAGE
 
-FROM ${BUILDER_IMAGE:-registry.redhat.io/openshift-serverless-1/logic-swf-builder-rhel8:1.35.0-6} AS builder
+FROM ${BUILDER_IMAGE:-quay.io/orchestrator/incubator-kie-sonataflow-swf-builder:main} AS builder
 
-ARG QUARKUS_EXTENSIONS
-ENV QUARKUS_EXTENSIONS=${QUARKUS_EXTENSIONS}
+ENV QUARKUS_EXTENSIONS=io.quarkiverse.openapi.generator:quarkus-openapi-generator:2.11.0-lts,org.kie:kie-addons-quarkus-monitoring-sonataflow,org.kie:kogito-addons-quarkus-jobs-knative-eventing,io.quarkus:quarkus-oidc-client-filter:3.15.6.redhat-00004,org.kie:kie-addons-quarkus-persistence-jdbc,io.quarkus:quarkus-jdbc-postgresql,io.quarkus:quarkus-agroal
 
 ARG MAVEN_ARGS_APPEND
 ENV MAVEN_ARGS_APPEND=${MAVEN_ARGS_APPEND}
+
+COPY settings.xml /home/kogito/.m2/settings.xml
 
 COPY --chown=1001 . .
 

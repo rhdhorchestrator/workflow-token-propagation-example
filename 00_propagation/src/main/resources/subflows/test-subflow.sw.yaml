@@ -1,0 +1,35 @@
+id: testSubflow
+version: "1.0"
+specVersion: "0.8"
+name: "Token Propagation subflow"
+description: Propagate token subflow
+functions:
+  - name: getWithSimpleBearerTokenSecurityScheme
+    operation: ../specs/simple-server.yaml#getWithSimpleBearerTokenSecurityScheme
+  - name: print
+    type: custom
+    operation: sysout
+start: "Print inputs Subflpw"
+states:
+  - name: Print inputs Subflpw
+    type: operation
+    actions:
+      - name: printSubflow
+        functionRef:
+          refName: print
+          arguments:
+            message: '${"headers subflow: " + ($WORKFLOW.headers | to_entries | map( "-var=\"\( .key + "=" + .value )\"" ) | join( " " )) }'
+      - name: "getWithSimpleBearerTokenSecuritySchemeSubflow"
+        functionRef:
+          refName: getWithSimpleBearerTokenSecurityScheme
+      - name: printSubflow2
+        sleep:
+          before: PT10S
+        functionRef:
+          refName: print
+          arguments:
+            message: '${"headers subflow 2: " + ($WORKFLOW.headers | to_entries | map( "-var=\"\( .key + "=" + .value )\"" ) | join( " " )) }'
+      - name: "getWithSimpleBearerTokenSecuritySchemeAfterSleepSubflow"
+        functionRef:
+          refName: getWithSimpleBearerTokenSecurityScheme
+    end: true

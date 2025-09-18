@@ -4,12 +4,8 @@ specVersion: "0.8"
 name: "Token Propagation"
 description: Propagate token
 functions:
-  - name: getWithBearerTokenSecurityScheme
-    operation: specs/sample-server.yaml#getWithBearerTokenSecurityScheme
-  - name: getWithOtherBearerTokenSecurityScheme
-    operation: specs/sample-server.yaml#getWithOtherBearerTokenSecurityScheme
   - name: getWithSimpleBearerTokenSecurityScheme
-    operation: specs/sample-server.yaml#getWithSimpleBearerTokenSecurityScheme
+    operation: specs/simple-server.yaml#getWithSimpleBearerTokenSecurityScheme
   - name: print
     type: custom
     operation: sysout
@@ -34,24 +30,24 @@ states:
         functionRef:
           refName: print
           arguments:
-            message: '${"Identity: " + $WORKFLOW.identity }'
-      - name: getBasicIdentity
-        functionRef:
-          refName: getBasicIdentity
-      - name: printBasicIdentity
-        functionRef:
-          refName: print
-          arguments:
-            message: '${"Basic Identity: " + .identity }'
-      - name: "getWithBearerTokenSecurityScheme"
-        functionRef:
-          refName: getWithBearerTokenSecurityScheme
-      - name: "getWithOtherBearerTokenSecurityScheme"
-        functionRef:
-          refName: getWithOtherBearerTokenSecurityScheme
+            message: '${"headers: " + ($WORKFLOW.headers | to_entries | map( "-var=\"\( .key + "=" + .value )\"" ) | join( " " )) }'
       - name: "getWithSimpleBearerTokenSecurityScheme"
         functionRef:
           refName: getWithSimpleBearerTokenSecurityScheme
+      - name: callSubflow1
+        subFlowRef: testSubflow
+        actionDataFilter:
+          useResults: false
+      - name: "getWithSimpleBearerTokenSecuritySchemeAfterSleep"
+        sleep:
+          before: PT10S
+        functionRef:
+          refName: getWithSimpleBearerTokenSecurityScheme
+      - name: print2
+        functionRef:
+          refName: print
+          arguments:
+            message: '${"headers2: " + ($WORKFLOW.headers | to_entries | map( "-var=\"\( .key + "=" + .value )\"" ) | join( " " )) }'
       - name: setOutput
         functionRef:
           refName: successResult

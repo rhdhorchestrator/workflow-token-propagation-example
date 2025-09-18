@@ -178,12 +178,12 @@ function build_image {
     # These add-ons enable the use of JDBC for persisting workflow states and correlation
     # contexts in serverless workflow applications.
     local base_quarkus_extensions="\
-    org.kie:kie-addons-quarkus-persistence-jdbc:9.102.0.redhat-00005,\
-    io.quarkus:quarkus-jdbc-postgresql:3.8.6.redhat-00004,\
-    io.quarkiverse.openapi.generator:quarkus-openapi-generator:2.4.7,\
-    io.quarkus:quarkus-oidc-client-filter,\
-    io.quarkus:quarkus-oidc,\
-    io.quarkus:quarkus-agroal:3.8.6.redhat-00004"
+    io.quarkiverse.openapi.generator:quarkus-openapi-generator:2.11.0-lts,\
+    org.kie:kie-addons-quarkus-monitoring-sonataflow,\
+    org.kie:kogito-addons-quarkus-jobs-knative-eventing,\
+    org.kie:kie-addons-quarkus-persistence-jdbc,\
+    io.quarkus:quarkus-jdbc-postgresql,\
+    io.quarkus:quarkus-agroal"
 
     # The 'maxYamlCodePoints' parameter contols the maximum size for YAML input files. 
     # Set to 35000000 characters which is ~33MB in UTF-8.  
@@ -242,6 +242,4 @@ build_image
 if [[ -n "${args["deploy"]}" ]]; then
     log_info "Pushing the workflow image to ${args["image"]%/*}"
     push
-    log_info "Applying the generated manifests"
-    kubectl apply -f "${args["manifests-directory"]}"
 fi
